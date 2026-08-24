@@ -1,0 +1,45 @@
+/*funnel measures*/
+Sessions =
+SUM(website_sessions_clean[sessions])
+
+Product Views =
+SUM(website_sessions_clean[product_views])
+
+Add to Cart =
+SUM(website_sessions_clean[add_to_cart])
+
+Checkout =
+SUMX(
+    website_sessions_clean,
+    INT(website_sessions_clean[begin_checkout])
+)
+
+Purchases =
+SUMX(
+    website_sessions_clean,
+    INT(website_sessions_clean[purchased])
+)
+/*funnel conversion*/
+View Rate =
+DIVIDE(
+    [Product Views],
+    [Sessions]
+)
+
+Cart Rate =
+DIVIDE(
+    [Add to Cart],
+    [Product Views]
+)
+Checkout Rate =
+DIVIDE(
+    [Checkout],
+    [Add to Cart]
+)
+Purchase Rate =
+DIVIDE(
+    [Purchases],
+    [Checkout]
+)
+
+  
